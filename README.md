@@ -1,7 +1,5 @@
-# ADD Packages and generate Scaffold from Database
-```bat
 echo off
-title Teste BAT Scaffold
+title BAT Scaffold
 cls
 dotnet ef
 @REM Checando se o comando anterior rodou sem erros.
@@ -17,7 +15,17 @@ IF %erros%==0 (
 	@REM ==== FIM Condições da primeira instalação ====
 	
 	:Scaffold
-    dotnet ef dbcontext scaffold "server=YourServer;user=YourUser;password=YourPass;database=YourBD" Microsoft.EntityFrameworkCore.SqlServer -v -f --context-dir Context -c ProBdCartaoContext -o ../Domain/Entities -t TB_X -t TB_Y --no-onconfiguring --no-pluralize
+    	dotnet ef dbcontext scaffold ^
+	"server=YourServer;user=YourUser;password=YourPass;database=YourDB" ^
+	Microsoft.EntityFrameworkCore.SqlServer -v -f ^
+	--context-dir Context -c ProBdCartaoContext ^
+	-o ../Domain/Entidades ^
+	-t TB_X -t TB_Y ^
+	--no-onconfiguring ^
+	--no-pluralize
+
+	dotnet add reference ../Domain/Domain.csproj
+	dotnet restore
 	pause
 	exit
 	
@@ -32,7 +40,7 @@ IF %erros%==0 (
 
 IF NOT %erros%==0 (
 	:DotTool
-    	set /p dotTool= Voce nao possui a ferramenta de scaffold instalada globalmente, deseja instalar? [y/n]: 
+    set /p dotTool= Voce nao possui a ferramenta de scaffold instalada globalmente, deseja instalar? [y/n]: 
 	IF "%dotTool%"=="y" (
 		dotnet tool install --global dotnet-ef
 		echo Ferramenta Instalada, pressione uma tecla para instalar os pacotes...
@@ -43,4 +51,3 @@ IF NOT %erros%==0 (
 	
 	pause
 )
-```
