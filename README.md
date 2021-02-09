@@ -1,3 +1,4 @@
+```sh
 echo off
 title BAT Scaffold
 cls
@@ -51,3 +52,4 @@ IF NOT %erros%==0 (
 	
 	pause
 )
+```
